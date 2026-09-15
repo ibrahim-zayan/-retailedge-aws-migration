@@ -61,3 +61,14 @@ evenings, then verified the site serves traffic correctly through
 the ALB.
 
 Full details: [layer-3-compute/console-steps.md](./layer-3-compute/console-steps.md)
+
+## Layer 4 — Data Layer & Migration
+
+Provisioned RDS MySQL Multi-AZ (`retailedge-db`) with encrypted
+storage and 7-day backups, plus an ElastiCache Redis cluster
+(`retailedge-cache`) with Multi-AZ and encryption enabled. Wrote a
+4-phase migration cutover plan (Full Load, CDC, Cutover, Rollback)
+achieving near-zero RPO and under 2-minute RTO.
+
+Full details: [layer-4-data/console-steps.md](./layer-4-data/console-steps.md)
+| [Migration Plan](./layer-4-data/migration_plan.md)
