@@ -35,3 +35,26 @@ zero (seconds) since data is written to both the primary and
 standby before a transaction is confirmed. RTO is typically under
 2 minutes, since Multi-AZ failover is automatic and does not
 require manual intervention.
+
+## Task 4.4 (Bonus) — Why ElastiCache alongside RDS
+
+ElastiCache reduces how often the application needs to query RDS
+directly. Reading data from memory (RAM) is much faster than reading
+from a database. When the same data (like a popular product's
+details, or a frequent search result) is requested thousands of
+times per hour, there's no need to hit RDS every single time —
+instead, the first request fetches it from RDS and stores it in the
+cache, and every subsequent request for the same data is served
+directly from the cache, which is much faster and reduces load on RDS.
+
+### Cache Hit / Cache Miss Flow
+
+1. The application requests data and checks ElastiCache first.
+2. **Cache hit:** the data is already in the cache, so it's returned
+   immediately without touching RDS at all.
+3. **Cache miss:** the data isn't in the cache, so the application
+   queries RDS, fetches the result, saves it into the cache for next
+   time, then returns it to the user.
+
+As the cache hit rate increases, load on RDS decreases and response
+times improve for users.
